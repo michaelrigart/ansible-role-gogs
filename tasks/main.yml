@@ -6,7 +6,7 @@
     state: 'present'
     update_cache: yes
     cache_valid_time: 3600
-  with_items: gogs_pkgs
+  with_items: gogs_dependency_pkgs
 
 
 - name: create user git
@@ -18,12 +18,13 @@
 
 - name: get binary
   get_url:
-    url: '{{ gogs_binary_url }}'
+    url: '{{ gogs_binary_url }}/{{ gogs_version }}'
     dest: '{{ gogs_user_home }}/gogs.zip'
     owner: '{{ gogs_user }}'
     group: '{{ gogs_user }}'
 
-- name: expand gogs payload
+- name: unzip binary zip
+  sudo_user: '{{ gogs_user }}'
   unarchive:
     src: '{{ gogs_user_home}}/gogs.zip'
     dest: '{{ gogs_user_home }}/'
@@ -31,14 +32,6 @@
     copy: no
     owner:  '{{ gogs_user }}'
     group: '{{ gogs_user }}'
-
-- name: set git user / group
-  file:
-    path: '{{ gogs_user_home }}/gogs'
-    recurse: yes
-    owner: '{{ gogs_user }}'
-    group: '{{ gogs_user }}'
-    state: directory
 
 - name: set custom conf folder
   file:
@@ -63,6 +56,14 @@
     dest: '{{ gogs_user_home }}/gogs/custom/conf/app.ini'
     owner: '{{ gogs_user }}'
     group: '{{ gogs_user }}'
+
+- name: make binary executable
+  file:
+    path: '{{ gogs_user_home }}/gogs/gogs'
+    owner: '{{ gogs_user }}'
+    group: '{{ gogs_user }}'
+    mode: 0755
+  notify: restart_gogs
 
 - name: copy the init script
   template:
