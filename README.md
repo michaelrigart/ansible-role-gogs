@@ -1,5 +1,6 @@
 Ansible Gogs Role
 =================
+[![Build Status](https://travis-ci.org/michaelrigart/ansible-role-gogs.svg?branch=master)](https://travis-ci.org/michaelrigart/ansible-role-gogs)
 
 An ansible role for installing and configuring Gogs.
 
@@ -11,22 +12,25 @@ For more information on Gogs, [visit the Gogs.io website](http://www.gogs.io)
 Role Variables
 --------------
 
-- gogs_dependency_pkgs: list of dependency packages needed for Gogs and the installation
-- gogs_user: user to run gogs
-- gogs_user_home: home directory for the gogs user / installation
-- gogs_binary_url: URL to a binary package of gogs
-- gogs_version: zip-file containing the gogs binary
-- gogs_config: a dictionary holding you configuration parameters
+```yaml
+gogs_dependency_pkgs: list of dependency packages needed for Gogs and the installation
+gogs_user: user to run gogs
+gogs_user_home: home directory for the gogs user / installation
+gogs_binary_url: URL to a binary package of gogs
+gogs_version: zip-file containing the gogs binary
+gogs_config: a dictionary holding you configuration parameters
+```
 
 View the default vars - defaults/main.yml - for a more detailed example.
-
 
 Example Playbook
 -------------------------
 
-    - hosts: servers
-      roles:
-         - { role: MichaelRigart.gogs }
+```yaml
+- hosts: servers
+  roles:
+     - { role: MichaelRigart.gogs, sudo: Yes }
+```
 
 License
 -------
