@@ -65,20 +65,6 @@
     mode: 0755
   notify: restart_gogs
 
-- name: debug gogs
-  shell: 'ls -al {{ gogs_user_home }}/gogs'
-  register: debug_gogs
-
-- name: debug gogs/scripts
-  shell: 'ls -al {{ gogs_user_home }}/gogs/scripts'
-  register: debug_scripts
-
-- debug: var=debug_gogs.stdout
-
-- debug: var=debug_scripts.stdout
-
-
-
 - name: copy the init script
   template:
     src: gogs-server.j2
