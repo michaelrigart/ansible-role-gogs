@@ -43,17 +43,15 @@ do_start() {
                 if [ -z "${DAEMON_USER}" ]; then
                         start-stop-daemon --start --quiet --oknodo --background \
                                 --nicelevel $DAEMON_NICE \
-                                --chdir "${DAEMON_PWD}" \
                                 --pidfile "${DAEMON_PID}" --make-pidfile \
-                                --exec "${DAEMON_PATH}" -- -c $DAEMON_OPTS
+                                --exec "${DAEMON_PWD}/${DAEMON_PATH}" -- -c $DAEMON_OPTS
                         result=$?
                 else
                         start-stop-daemon --start --quiet --oknodo --background \
                                 --nicelevel $DAEMON_NICE \
-                                --chdir "${DAEMON_PWD}" \
                                 --pidfile "${DAEMON_PID}" --make-pidfile \
                                 --chuid "${DAEMON_USER}" \
-                                --exec  "${DAEMON_PATH}" -- -c ${DAEMON_OPTS}
+                                --exec  "${DAEMON_PWD}/${DAEMON_PATH}" -- -c ${DAEMON_OPTS}
                         result=$?
                 fi
                 log_end_msg $result
