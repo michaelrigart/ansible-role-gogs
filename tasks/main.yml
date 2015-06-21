@@ -8,7 +8,6 @@
     cache_valid_time: 3600
   with_items: gogs_dependency_pkgs
 
-
 - name: create user git
   user:
     name: '{{ gogs_user }}'
@@ -33,10 +32,17 @@
     owner:  '{{ gogs_user }}'
     group: '{{ gogs_user }}'
 
+- name: set custom folder
+  file:
+    state: directory
+    path: '{{ gogs_user_home }}/gogs/custom'
+    owner: '{{ gogs_user }}'
+    group: '{{ gogs_user }}'
+    mode: 0755
+
 - name: set custom conf folder
   file:
     state: directory
-    recurse: yes
     path: '{{ gogs_user_home }}/gogs/custom/conf'
     owner: '{{ gogs_user }}'
     group: '{{ gogs_user }}'
@@ -56,6 +62,7 @@
     dest: '{{ gogs_user_home }}/gogs/custom/conf/app.ini'
     owner: '{{ gogs_user }}'
     group: '{{ gogs_user }}'
+    mode: 0644
 
 - name: make binary executable
   file:
