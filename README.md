@@ -1,6 +1,5 @@
 Ansible Gogs Role
 =================
-[![Build Status](https://semaphoreci.com/api/v1/projects/dc9365b3-aafe-44ef-aeaf-fdbddbc3450d/459449/badge.svg)](https://semaphoreci.com/michaelrigart/ansible-role-gogs)
 
 An ansible role for installing and configuring Gogs.
 
@@ -29,7 +28,7 @@ Example Playbook
 ```yaml
 - hosts: servers
   roles:
-     - { role: MichaelRigart.gogs, sudo: Yes }
+     - { role: MichaelRigart.gogs, become: true }
 ```
 
 License
