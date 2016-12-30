@@ -6,7 +6,7 @@
     state: 'present'
     update_cache: yes
     cache_valid_time: 3600
-  with_items: gogs_dependency_pkgs
+  with_items: '{{ gogs_dependency_pkgs }}'
 
 - name: create user git
   user:
